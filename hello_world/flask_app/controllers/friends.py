@@ -15,9 +15,9 @@ def display_friends():
 @app.route('/create/friend', methods=['POST'])
 def create_friend():
     data = {
-        "first_name" : request.form.get("fname"),
-        "last_name" : request.form.get("lname"),
-        "occupation" : request.form.get("occ")
+        "first_name" : request.form.get("first_name"),
+        "last_name" : request.form.get("last_name"),
+        "occupation" : request.form.get("occupation")
     }
     Friend.add_friend(data)
     return redirect("/friends")
