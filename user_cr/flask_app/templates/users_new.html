@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<h1>Add a User</h1>
+<form method="post" action="/users/create">
+    <label for="first_name">First Name:</label>
+    <input type="text" name="first_name">
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="last_name">
+    <label for="email">Email:</label>
+    <input type="email" name="email">
+    <input type="submit" value="Add User">
+</form>
+{% endblock %}

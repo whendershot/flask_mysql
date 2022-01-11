@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.controllers import friends
+from flask_app.controllers import users
 
 @app.route('/', defaults={'u_path' : ''})
 @app.route('/<path:u_path>')
