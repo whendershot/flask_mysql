@@ -7,6 +7,17 @@
     <title>Hello Friends</title>
 </head>
 <body>
+    <h1>Add a Friend</h1>
+    <form method="post" action="/create/friend">
+        <label for="fname">First Name:</label>
+        <input type="text" name="fname">
+        <label for="lname">Last Name:</label>
+        <input type="text" name="lname">
+        <label for="occ">Occupation:</label>
+        <input type="text" name="occ">
+        <input type="submit" value="Add Friend">
+    </form>
+
     <h1>All my peeps</h1>
     {% for friend in all_friends  %}
         <p>First Name: {{ friend.first_name }}</p>
