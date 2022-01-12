@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<form action="/users/{{ user.id }}/update" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="first_name" class="form-label" aria-label="First Name">First Name</label>
+            <input name="first_name" id="first_name" type="text" class="form-control" value="{{ user.first_name }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="last_name" class="form-label" aria-label="Last Name">Last Name</label>
+            <input name="last_name" id="last_name" type="text" class="form-control" value="{{ user.last_name }}">
+        </div>
+    </div>
+    <div class="row gy-3">
+        <div class="col-md-6">
+                <label for="email" class="form-label" aria-label="Email">Email</label>
+                <input name="email" id="email" type="email" class="form-control" value="{{ user.email }}">
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/users/{{ user.id }}" class="btn btn-secondary">Show User</a>
+</form>
+{% endblock main_content %}

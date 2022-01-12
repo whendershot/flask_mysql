@@ -25,3 +25,21 @@ class User:
         query = "INSERT INTO users (first_name, last_name, email) VALUES (%(first_name)s, %(last_name)s, %(email)s);"        
         user_id = connectToMySQL(cls.db).query_db(query, data)
         return user_id
+
+    @classmethod
+    def get_user(cls, data):
+        query = "SELECT * FROM users WHERE id = %(user_id)s LIMIT 1;"
+        result = connectToMySQL(cls.db).query_db(query, data)[0]
+        return result
+
+    @classmethod
+    def update_user(cls, data):
+        query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at=NOW() WHERE id = %(user_id)s LIMIT 1;"
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return result
+
+    @classmethod
+    def destroy(cls, data):
+        query = "DELETE FROM users WHERE id = %(id)s LIMIT 1;"
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return result
