@@ -1,5 +1,10 @@
+from flask import redirect
 from flask_app import app
 from flask_app.controllers import dojos, ninjas
+
+@app.route('/')
+def index():
+    return redirect('/dojos')
 
 @app.route('/', defaults={'u_path' : ''})
 @app.route('/<path:u_path>')

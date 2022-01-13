@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>New Dojo</h1>
+                <form action="/dojos/create" method="post">
+                    <div class="row mb-3">
+                        <label for="dojo_name" class="col-form-label col-sm-2" aria-label="Dojo Name">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="dojo_name" name="dojo_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <h1>All Dojos</h1>
+                <div class="card">
+                    <ul>
+                    {% for dojo in dojos %}
+                        <li><a href="dojos/{{ dojo.id }}">{{ dojo.name }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
