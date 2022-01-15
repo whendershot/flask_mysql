@@ -23,9 +23,11 @@
                 <h1>All Authors</h1>
                 <div class="card">
                     <ul>
+                    {% if authors %}
                     {% for author in authors %}
-                        <li><a href="author/{{ author.id }}">{{ author.name }}</a></li>
+                    <li><a href="author/{{ author.id }}">{{ author.name }}</a></li>
                     {% endfor %}
+                    {% endif %}
                     </ul>
                 </div>
             </div>

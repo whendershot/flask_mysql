@@ -3,9 +3,9 @@ from flask import render_template, request, redirect
 from flask_app.models import book, author
 
 @app.route('/books')
-def show_authors():
+def show_books():
     books = book.Book.get_all()
-    return render_template('show_books.html', books=books)
+    return render_template('books.html', books=books)
 
 @app.route('/books/create', methods=['POST'])
 def create_book():
