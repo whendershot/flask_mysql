@@ -4,12 +4,12 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>New Dojo</h1>
-                <form action="/dojos/create" method="post">
+                <h1>New Author</h1>
+                <form action="/authors/create" method="post">
                     <div class="row mb-3">
                         <label for="name" class="col-form-label col-sm-2" aria-label="Author Name">Name:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="author_name" name="author_name">
                         </div>
                     </div>
                     <div class="row">
@@ -23,11 +23,11 @@
                 <h1>All Authors</h1>
                 <div class="card">
                     <ul>
-                    {% if authors %}
-                    {% for author in authors %}
-                    <li><a href="author/{{ author.id }}">{{ author.name }}</a></li>
-                    {% endfor %}
-                    {% endif %}
+                        {% if authors %}
+                        {% for author in authors %}
+                        <li><a href="authors/{{ author.id }}">{{ author.name }}</a></li>
+                        {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>

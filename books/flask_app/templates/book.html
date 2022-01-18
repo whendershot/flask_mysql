@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Title: {{ book.title }}</h1>
+            <div>
+                {% if favorites %}
+                <h3>Favorited by:</h3>
+                <ul>
+                    {% for author in favorites %}
+                        <li>{{ author.name }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <h1>Add Book's Favorite</h1>
+            <form action="/favorites/create" method="post">
+                <div class="row mb-3">
+                    <label for="author_id" class="col-form-label col-sm-2" aria-label="Author Name">Author:</label>
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="hidden" name="return_url" value="{{ request.path }}">
+                    <div class="col-sm-10">
+                        {% if authors %}
+                        <select class="form-select" id="authors" name="author_id">
+                            {% for author in authors %}
+                            <option value="{{ author.id }}">{{ author.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col offset-sm-2">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

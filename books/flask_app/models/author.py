@@ -14,15 +14,32 @@ class Author:
 
     @classmethod
     def get_all(cls):
-        pass
+        query = '''
+            SELECT * FROM authors;
+        '''
+        result = connectToMySQL(cls.db).query_db(query)
+        return result
 
     @classmethod
-    def get_one( cls, id):
+    def get_by_id( cls, data):
+        query = '''
+            SELECT * FROM authors WHERE id = %(author_id)s LIMIT 1;
+        '''
+        result = connectToMySQL(cls.db).query_db(query, data)[0]
+        return result
+
+    @classmethod
+    def get_favorited_by_authors(cls):
         pass
 
     @classmethod
     def create(cls, data):
-        pass
+        query = '''
+            INSERT INTO authors (name)
+            VALUES (%(author_name)s)
+        '''
+        _author_id = connectToMySQL(cls.db).query_db(query, data)
+        return _author_id
 
     @classmethod
     def update(cls, data):

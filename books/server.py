@@ -1,6 +1,6 @@
 from flask import redirect
 from flask_app import app
-from flask_app.controllers import books, authors
+from flask_app.controllers import books, authors, favoriteBooks
 
 @app.route('/')
 def index():

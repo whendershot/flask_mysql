@@ -15,19 +15,30 @@ class Book:
 
     @classmethod
     def get_all(cls):
-        pass
+        query = "SELECT * FROM books;"
+        results = connectToMySQL(cls.db).query_db(query)
+        return results
 
     @classmethod
-    def get_one( cls, id):
-        pass
+    def get_by_id( cls, data):
+        query = "SELECT * FROM books WHERE id = %(book_id)s LIMIT 1;"
+        results = connectToMySQL(cls.db).query_db(query, data)[0]
+        return results
 
     @classmethod
     def create(cls, data):
-        pass
+        query = '''
+            INSERT INTO books (title, num_of_pages)
+            VALUES (%(title)s, %(num_of_pages)s)
+        '''
+        book_id = connectToMySQL(cls.db).query_db(query, data)
+        return book_id
 
     @classmethod
     def update(cls, data):
-        pass
+        query = '''
+            UPDATE books SET 
+        '''
 
     @classmethod
     def delete(cls, id):
