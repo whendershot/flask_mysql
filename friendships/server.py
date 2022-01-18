@@ -1,10 +1,10 @@
 from flask import redirect
 from flask_app import app
-from flask_app.controllers import dojos, ninjas
+from flask_app.controllers import friendships, users
 
 @app.route('/')
 def index():
-    return redirect('/dojos')
+    return redirect('/friendships')
 
 @app.route('/', defaults={'u_path' : ''})
 @app.route('/<path:u_path>')
