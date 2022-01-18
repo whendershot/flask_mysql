@@ -22,6 +22,6 @@ def show_author(id):
         'author_id' : id
     }
     _author = author.Author.get_by_id(data)
-    _books = book.Book.get_all()
+    _books = book.Book.get_potential_books(data)
     _favorites = favoriteBook.FavoriteBook.get_all_books(data)
     return render_template('author.html', author=_author, books=_books, favorites=_favorites)

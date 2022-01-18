@@ -22,7 +22,7 @@ def show_book(id):
         'book_id' : id
     }
     _book = book.Book.get_by_id(data)
-    _authors = author.Author.get_all()
+    _authors = author.Author.get_potential_authors(data)
     _favorites = favoriteBook.FavoriteBook.get_all_authors(data)
     print(_book)
     return render_template('book.html', book=_book, authors=_authors, favorites=_favorites)

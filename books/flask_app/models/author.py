@@ -29,8 +29,19 @@ class Author:
         return result
 
     @classmethod
-    def get_favorited_by_authors(cls):
-        pass
+    def get_potential_authors(cls, data):
+        query = '''
+            SELECT
+                *
+            FROM
+                authors
+            WHERE 
+                id NOT IN (
+                    SELECT author_id FROM favorites WHERE book_id = %(book_id)s
+                );
+        '''
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return result
 
     @classmethod
     def create(cls, data):

@@ -26,6 +26,21 @@ class Book:
         return results
 
     @classmethod
+    def get_potential_books(cls, data):
+        query = '''
+            SELECT 
+                * 
+            FROM 
+                books 
+            WHERE
+                id NOT IN (
+                    SELECT book_id FROM favorites WHERE author_id = %(author_id)s
+                );
+        '''
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
+
+    @classmethod
     def create(cls, data):
         query = '''
             INSERT INTO books (title, num_of_pages)

@@ -16,8 +16,10 @@
                         </thead>
                         <tbody>
                             {% for book in favorites %}
-                            <td>{{ book.title }}</td>
-                            <td>{{ book.num_of_pages }}</td>
+                            <tr>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.num_of_pages }}</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
