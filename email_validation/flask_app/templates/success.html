@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+
+{% with flash_messages = get_flashed_messages() %}
+{% if flash_messages %}
+<div class="card text-white bg-success border-5 container">
+    <div class="row justify-content-center">
+        {% for m in flash_messages %}
+        <p class="text-center">{{ m }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="container mt-3">
+    <h1 class="text-decoration-underline">Email Addresses Entered:</h1>
+    {% if emails %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Email</td>
+                <td>Created At</td>
+                <td>Options</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for email in emails %}
+            <tr>
+                <td>{{ email.email }}</td>
+                <td>{{ email.created_at | format_datetime }}</td>
+                <td>
+                    <a href="/emails/{{ email.id }}/delete">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}
