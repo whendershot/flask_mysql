@@ -5,22 +5,24 @@
 
 {% block content %}
 <h1>Surveys</h1>
+{% if surveys %}
 <table class="table table-md">
     <thead class="table-dark">
         <tr>
-            {% for k  in surveys[0].keys() %}
-                <th scope="col">{{ " ".join(k.split("_")).title() }}</th>
+            {% for k in surveys[0].__dict__.keys() %}
+            <th scope="col">{{ " ".join(k.split("_")).title() }}</th>
             {% endfor %}
         </tr>
     </thead>
     <tbody>
         {% for survey in surveys %}
         <tr>
-            {% for val in survey.values() %}
-                <td class="col">{{ val }}</td>
+            {% for val in survey.__dict__.values() %}
+            <td class="col">{{ val }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}

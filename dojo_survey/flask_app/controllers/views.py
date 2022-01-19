@@ -3,7 +3,7 @@ from flask_app import app
 from flask_app.db import db
 
 @app.route('/')
-def index():
+def index_load():
     return render_template('./user_survey.html', data=db)
 
 @app.route('/', defaults={'u_path' : ''})

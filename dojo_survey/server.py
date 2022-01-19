@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, session
-from flask_app.controllers import views
+from flask_app.controllers import views, dojoSurveys
 from flask_app import app
 
 
