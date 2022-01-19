@@ -5,12 +5,17 @@ from flask_app import app
 
 @app.route('/process', methods = ['POST'])
 def process_survey():
+    
     data = {
         'name' : request.form.get('user_name'),
         'location' : request.form.get('dojo_location'),
         'language' : ', '.join(str(i) for i in request.form.getlist('languages')),
         'comment' : request.form.get('comment')
     }
+    
+    if (not dojoSurvey.DojoSurvey.validate(data)):
+        return redirect('/')
+    
     session['latest_survey'] = {
         'name' : request.form.get('user_name'),
         'location' : request.form.get('dojo_location'),

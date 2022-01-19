@@ -42,4 +42,15 @@
         </div>
     </form>
 </div>
+
+{% with flash_messages = get_flashed_messages() %}
+    {% if flash_messages %}
+    <div class="card">
+        <h1>Submission errors</h1>
+        {% for m in flash_messages %}
+        <p>{{ m }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
 {% endblock %}

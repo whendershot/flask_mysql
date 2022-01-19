@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
 
 class DojoSurvey:
 
@@ -43,3 +44,24 @@ class DojoSurvey:
     @classmethod
     def delete(cls, data):
         pass
+
+    @staticmethod
+    def validate(dojoSurvey):
+        is_valid = True
+        if (len(dojoSurvey['name']) < 3):
+            flash('Name must be at least 3 characters.')
+            is_valid = False
+
+        if (dojoSurvey['location'] == ''):
+            flash('A location must be selected')
+            is_valid = False
+
+        if (dojoSurvey['language'] == ''):
+            flash('Please select at least one programming language.')
+            is_valid = False
+
+        if (len(dojoSurvey['comment']) < 3):
+            flash('Please enter a comment with the survey.')
+            is_valid = False
+
+        return is_valid
