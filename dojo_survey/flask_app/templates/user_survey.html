@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card">
+    <h5 class="card-title text-center">Dojo Survey</h5>
+    <form class="row g-3 card-body" action="/process" target="_blank" method="post">
+        <label for="user_name" class="col-form-label col-md-3">Your name:</label>
+        <div class="col-md-9">
+            <input type="text" class="form-control" name="user_name">
+        </div>
+        <label for="dojo_location" class="col-form-label col-md-3">Dojo location:</label>
+        {% for location in data['dojo_locations'] %}
+        <div class="col form-check form-check-inline">
+            <input class="form-check-input" type="radio" value="{{ location['name'] }}" name="dojo_location" id="dojoLocation{{ loop.index0 }}">
+            <label class="form-check-label" for="dojoLocation{{ loop.index0 }}">{{ location['name']}}</label>
+        </div>
+        {% endfor %}
+        <label for="language" class="col-form-label col-md-3">Favorite Language:</label>
+        {% for lang in data['available_programming_languanges'] %}
+        <div class="col form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="{{ lang['name'] }}" name="languages" id="language{{ loop.index0 }}">
+            <label class="form-check-label" for="language{{ loop.index0 }}">{{ lang['name'] }}</label>
+        </div>
+        {% endfor %}
+        </div>
+        <div class="col">
+            <label for="comment" class="form-label">Comment: (optional)</label>
+            <textarea name="comment" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-md">Submit Survey</button>
+    </form>
+</div>
+{% endblock %}

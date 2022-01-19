@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Surveys</h1>
+<table class="table table-md">
+    <thead class="table-dark">
+        <tr>
+            {% for k  in surveys[0].keys() %}
+                <th scope="col">{{ " ".join(k.split("_")).title() }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for survey in surveys %}
+        <tr>
+            {% for val in survey.values() %}
+                <td class="col">{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
