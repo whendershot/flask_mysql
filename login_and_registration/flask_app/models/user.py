@@ -6,7 +6,7 @@ import re
 class User:
 
     EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-    PASSWORD_REGEX = re.compile(r'^.{8}$')
+    PASSWORD_REGEX = re.compile(r'^[0-9][a-z][A-Z].{8}$')
 
     db = 'login_site'
     
@@ -28,6 +28,10 @@ class User:
         if (not User.PASSWORD_REGEX.match(registrant['password'])):
             is_valid = False
             flash(f'Bad Password. Need at least length 8.', 'registration')
+
+        if (not registrant['password'] == registrant['password_confirm']):
+            is_valid = False
+            flash(f'Must confirm password.', 'registration')
 
         return is_valid
 
@@ -174,10 +178,14 @@ class UserPII:
     def validate(registrant):
         is_valid = True
         
-        if (not len(registrant['first_name']) > 2):
+        if (not len(registrant['first_name']) > 1 and not registrant['first_name'].isalpha()):
             is_valid = False
-            flash(f'First Name needs at least 3 characters: {registrant["first_name"]}', 'registration')
+            flash(f'First Name needs at least 2 characters: {registrant["first_name"]}', 'registration')
         
+        if (not len(registrant['last_name']) > 1 and not registrant['last_name'].isalpha()):
+            is_valid = False
+            flash(f'First Name needs at least 2 characters: {registrant["first_name"]}', 'registration')
+
         if (not UserPII.is_unique({'email' : registrant['email']})):
             is_valid = False
             flash(f'The address entered is already in use.  Please submit a different email.', 'registration')

@@ -8,7 +8,7 @@ bcrypt = Bcrypt(app)
 @app.route('/users')
 def show_registration():
 
-    if ('user_id' in session and session['user_id'] > 0):
+    if not is_logged_in:
         return redirect('/dashboard')
 
     _p_languages = programmingLanguages.ProgrammingLanguages.get_all()
@@ -22,6 +22,7 @@ def register_user():
     data = {
         'email' : request.form['user_email'],
         'password' : request.form['user_password'],
+        'password_confirm' : request.form['user_password_confirm'],
         'first_name' : request.form['user_first_name'],
         'last_name' : request.form['user_last_name'],
         'birthday' : request.form['user_birthday'],
@@ -65,11 +66,11 @@ def login_user():
     user_in_db = user.User.get_by_email(data)
 
     if not user_in_db:
-        flash('Invalid Email/Password')
+        flash('Invalid Email/Password', 'login')
         return redirect('/users')
 
     if not bcrypt.check_password_hash(user_in_db.password_hash, request.form['user_password']):
-        flash('Invalid Email/Password')
+        flash('Invalid Email/Password', 'login')
         return redirect('/users')
 
     session['user_id'] = user_in_db.id
@@ -84,6 +85,9 @@ def logout():
 @app.route('/dashboard')
 def logged_in():
     
+    if not is_logged_in():
+        return redirect('/users')
+
     data = {
         'user_id' : session['user_id']
     }
@@ -91,3 +95,7 @@ def logged_in():
     data['user'] = user.UserPII.get_one(data)
     data['langs'] = programmingLanguages.LanguagesUsed.get_by_user(data)
     return render_template('./success.html', data=data)
+
+
+def is_logged_in():
+    return 'user_id' in session and session['user_id'] > 0
