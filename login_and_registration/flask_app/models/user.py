@@ -1,12 +1,12 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
-
+from datetime import date
 
 class User:
 
     EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-    PASSWORD_REGEX = re.compile(r'^[0-9][a-z][A-Z].{8}$')
+    PASSWORD_REGEX = re.compile(r'^(?=.*[A-Z])(?=.*[0-9]).{8}$')
 
     db = 'login_site'
     
@@ -27,7 +27,7 @@ class User:
         
         if (not User.PASSWORD_REGEX.match(registrant['password'])):
             is_valid = False
-            flash(f'Bad Password. Need at least length 8.', 'registration')
+            flash(f'Bad Password. Need at least: length 8, 1 upper case, 1 number.', 'registration')
 
         if (not registrant['password'] == registrant['password_confirm']):
             is_valid = False
@@ -44,8 +44,10 @@ class User:
                 id = (SELECT user_id FROM users_pii WHERE email = %(email)s)
             LIMIT 1
         ;'''
-        result = connectToMySQL(cls.db).query_db(query, data)[0]
-        return cls(result)
+        result = connectToMySQL(cls.db).query_db(query, data)
+        if len(result) > 0:
+            return cls(result)
+        return False
 
     @classmethod
     def is_unique(cls, data):
@@ -189,6 +191,18 @@ class UserPII:
         if (not UserPII.is_unique({'email' : registrant['email']})):
             is_valid = False
             flash(f'The address entered is already in use.  Please submit a different email.', 'registration')
+
+        if (not int(registrant['age']) >= 10):
+            is_valid = False
+            flash(f'You need to be at least 10 yeas old to register', 'registration')
+
+        if (registrant['birthday'] == ''):
+            is_valid = False
+            flash(f'You need to enter a birthday for validation', 'registration')
+
+        if (not registrant['birthday'] == '' and not ((date.today().year - date.fromisoformat(registrant['birthday']).year) >= 10) ):
+            is_valid = False
+            flash(f'Your birth year is less than 10.', 'registration')
 
         return is_valid
 

@@ -54,7 +54,7 @@ def register_user():
 
     session['user_id'] = data['user_id']
     
-    return redirect('/users')
+    return redirect('/dashboard')
 
 @app.route('/login', methods=['POST'])
 def login_user():
