@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-6">
+            {% with flash_messages = get_flashed_messages(category_filter=['registration']) %}
+            {% if flash_messages %}
+            <div class="card text-white bg-danger border-5 container">
+                <div class="row justify-content-center">
+                    {% for m in flash_messages %}
+                    <p class="text-center">{{ m }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="col card">
+                <h1>Register</h1>
+                <form method="post" action="/register" class="card-body">
+                    <div class="row mb-3">
+                        <label for="user_first_name" class="col-form-label col-sm-3">First Name:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="user_first_name">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="user_last_name" class="col-form-label col-sm-3">Last Name:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="user_last_name">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="user_email" class="col-form-label col-sm-3">Email:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="user_email">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="user_password" class="col-form-label col-sm-3">Password:</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" name="user_password">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="user_password_confirm" class="col-form-label col-sm-3">Confirm Password:</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" name="user_password_confirm">
+                        </div>
+                    </div>
+                    <div class="row justify-content-around">
+                        <button type="submit" class="col-sm-3 btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col col-sm-6">
+            <div class="row">
+                <div class="card col">
+                    {% with flash_messages = get_flashed_messages(category_filter=['login']) %}
+                    {% if flash_messages %}
+                    <div class="card text-white bg-danger border-5 container">
+                        <div class="row justify-content-center">
+                            {% for m in flash_messages %}
+                            <p class="text-center">{{ m }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    <h1>Login</h1>
+                    <form class="card-body" action="/login" method="post">
+                        <div class="row mb-3">
+                            <label for="user_email" class="col-form-label col-sm-3">Email:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="user_email">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="user_password" class="col-form-label col-sm-3">Password:</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" name="user_password">
+                            </div>
+                        </div>
+                        <div class="row justify-content-around">
+                            <button type="submit" class="col-sm-3 btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
