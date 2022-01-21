@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<h1>Welcome {{ data['user']['first_name'] }}!</h1>
+<div class="container">
+    <h1>{{ data['recipe']['name'] }}</h1>
+    <div class="card">
+        <div class="row mb-3">
+            <div class="col-sm-3">Description:</div>
+            <div class="col-sm-9">{{ data['recipe']['description'] }}</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">Under 30 minutes:</div>
+            <div class="col-sm-9">{{ data['recipe']['is_under_30_minutes'] | format_is_under_30_minutes }}</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">Instructions:</div>
+            <div class="col-sm-9">{{ data['recipe']['instructions'] }}</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">Date Made:</div>
+            <div class="col-sm-9">{{ data['recipe']['made_on'] | format_datetime('MMMM d, yyyy') }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

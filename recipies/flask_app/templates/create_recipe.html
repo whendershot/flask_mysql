@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<div class="container">
+    <h1 class="mb-3">Add New Recipe</h1>
+
+    {% with flash_messages = get_flashed_messages(category_filter=['create_recipe']) %}
+    {% if flash_messages %}
+    <div class="card text-white bg-danger border-5 container">
+        <div class="row justify-content-center">
+            {% for m in flash_messages %}
+            <p class="text-center">{{ m }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <form method="post" action="/recipes/create">
+            <div class="row">
+                <div class="col col-sm-6">
+                    <div class="row mb-3">
+                        <label for="recipe_name" class="col form-label">Name:</label>
+                            <div class="col">
+                                <input type="text" class="form-control" name="recipe_name">
+                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="recipe_description" class="col form-label">Description:</label>
+                            <div class="col">
+                                <textarea rows="4" type="text" class="form-control" name="recipe_description"></textarea>
+                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="recipe_instructions" class="col form-label">Instructions:</label>
+                            <div class="col">
+                                <textarea rows="4" type="text" class="form-control" name="recipe_instructions"></textarea>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+                <div class="col col-sm-6">
+                    <div class="row mb-3">
+                        <label for="recipe_name" class="col form-label">Date Made On:</label>
+                            <div class="col">
+                                <input type="date" class="form-control" name="recipe_made_on">
+                            </div>
+                    </div>
+                    <div class="row mb-3 form-check form-switch">
+                        <label for="recipe_name" class="col form-check-label">Under 30 Minutes?</label>
+                        <input type="checkbox" class="form-check-input" name="recipe_is_under_30_minutes">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
