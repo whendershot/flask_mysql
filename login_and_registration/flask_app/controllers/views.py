@@ -1,9 +1,9 @@
 from flask_app import app
-from flask import render_template
+from flask import redirect
 
 @app.route('/')
 def show_index():
-    return render_template('./index.html')
+    return redirect('/users')
 
 @app.route('/', defaults={'u_path' : ''})
 @app.route('/<path:u_path>')
